@@ -11,11 +11,11 @@ import { AngularFireModule } from 'angularfire2';
 
 // Must export the config
 export const firebaseConfig = {
-      apiKey: "AIzaSyBb0yc3UWwQPy_dvkcRLThNfQZuNx9jZ-g",
-      authDomain: "fir-starterapp.firebaseapp.com",
-      databaseURL: "https://fir-starterapp.firebaseio.com",
-      storageBucket: "fir-starterapp.appspot.com",
-    };
+  apiKey: '<your-key>',
+  authDomain: '<your-project-authdomain>',
+  databaseURL: '<your-database-URL>',
+  storageBucket: '<your-storage-bucket>'
+};
 
 @NgModule({
   imports: [
