@@ -1,5 +1,7 @@
 # ionic2.0-angularfire
 this a basic application for Ionic 2.0 RC0 with AngularFire2 Integration
+- Login with email address & password
+- Query List of Objects
 
 See Issue: https://github.com/angular/angularfire2/issues/578
 
