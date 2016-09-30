@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState, FirebaseAuth } from 'angularfire2';
 
 import { NavController } from 'ionic-angular';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-
-declare var firebase: any;
 
 
 @Component({
@@ -18,6 +16,7 @@ export class HomePage {
 
   currentUser;
   error;
+  authState;
   authChecked = false
   submitted = false;
   loginForm: FormGroup;
@@ -26,7 +25,8 @@ export class HomePage {
   constructor(
     public af: AngularFire,
     private builder: FormBuilder,
-    public navCtrl: NavController) {
+    public navCtrl: NavController,
+    public auth$: FirebaseAuth) {
 
   }
 
@@ -39,18 +39,18 @@ export class HomePage {
     // .. otherwise
     // show the login modal page
 
-    firebase.auth().onAuthStateChanged((_currentUser) => {
 
-      if (_currentUser) {
-        console.log("in auth subscribe", _currentUser)
-        this.currentUser = _currentUser;
+    this.auth$.subscribe((state: FirebaseAuthState) => {
+      if (state) {
+        console.log("in auth subscribe", state)
+        this.currentUser = state;
       } else {
         this.currentUser = null
       }
 
       this.authChecked = true;
+    });
 
-    })
   }
 
   doLogout() {

@@ -15,6 +15,10 @@
     <div *ngIf="currentUser && authChecked">
       <pre>{{currentUser | json}}</pre>
       <ion-row responsive-sm>
+        <ion-list>
+        </ion-list>
+      </ion-row>
+      <ion-row responsive-sm>
         <ion-col>
           <button ion-button (click)="doLogout()" color="primary" block>Logout</button>
         </ion-col>
