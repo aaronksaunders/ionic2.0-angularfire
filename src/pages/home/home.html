@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <div class="logo">
+      Firebase Login Ionic2 RC0
+    </div>
+    <div *ngIf="currentUser && authChecked">
+      <pre>{{currentUser | json}}</pre>
+      <ion-row responsive-sm>
+        <ion-col>
+          <button ion-button (click)="doLogout()" color="primary" block>Logout</button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngIf="!currentUser && authChecked">
+      <form #loginForm="ngForm" novalidate>
+        <ion-item>
+          <ion-label floating color="primary">Username</ion-label>
+          <ion-input [(ngModel)]="credentials.email" name="email" type="text" #email="ngModel" spellcheck="false" autocapitalize="off"
+            required>
+          </ion-input>
+        </ion-item>
+        <p [hidden]="email.valid || submitted == false" color="danger" padding-left>
+          Username is required
+        </p>
+
+        <ion-item>
+          <ion-label floating color="primary">Password</ion-label>
+          <ion-input [(ngModel)]="credentials.password" name="password" type="password" #password="ngModel" required>
+          </ion-input>
+        </ion-item>
+        <p [hidden]="password.valid || submitted == false" color="danger" padding-left>
+          Password is required
+        </p>
+
+        <ion-row responsive-sm>
+          <ion-col>
+            <button ion-button (click)="doLogin(loginForm)" type="submit" color="primary" block>Login</button>
+          </ion-col>
+        </ion-row>
+
+        <ion-row responsive-sm>
+          <ion-col>
+            <strong>
+            <h4 *ngIf="error" style="color:red">Error:&nbsp;{{ error.message }}</h4>
+            </strong>
+          </ion-col>
+        </ion-row>
+      </form>
+    </div>
+  </ion-list>
+</ion-content>
