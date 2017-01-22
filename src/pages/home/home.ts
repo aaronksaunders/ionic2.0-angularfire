@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState, FirebaseAuth } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState, AngularFireAuth } from 'angularfire2';
 
 import { NavController } from 'ionic-angular';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -12,7 +12,7 @@ import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms'
   //directives: [REACTIVE_FORM_DIRECTIVES]
 })
 
-export class HomePage {
+export class HomePage implements OnInit {
 
   currentUser;
   error;
@@ -26,7 +26,7 @@ export class HomePage {
     public af: AngularFire,
     private builder: FormBuilder,
     public navCtrl: NavController,
-    public auth$: FirebaseAuth) {
+    public auth$: AngularFireAuth) {
 
   }
 

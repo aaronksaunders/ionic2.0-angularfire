@@ -1,7 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
-
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
@@ -11,15 +9,16 @@ import { AngularFireModule } from 'angularfire2';
 
 // Must export the config
 export const firebaseConfig = {
-  apiKey: '<your-key>',
-  authDomain: '<your-project-authdomain>',
-  databaseURL: '<your-database-URL>',
-  storageBucket: '<your-storage-bucket>'
+//  apiKey: '<your-key>',
+//  authDomain: '<your-project-authdomain>',
+//  databaseURL: '<your-database-URL>',
+//  storageBucket: '<your-storage-bucket>'
+
+
 };
 
 @NgModule({
   imports: [
-    BrowserModule,
     FormsModule,
     ReactiveFormsModule,   
     AngularFireModule.initializeApp(firebaseConfig),
@@ -34,6 +33,6 @@ export const firebaseConfig = {
     MyApp,
     HomePage
   ],
-  providers: []
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule { }

@@ -1,28 +1,37 @@
 {
-  "name": "ionic-hello-world",
+  "name": "ionicRel2-angularfire2",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
-    "build": "ionic-app-scripts build --dev",
-    "watch": "ionic-app-scripts watch",
-    "serve:before": "watch",
-    "emulate:before": "build",
-    "deploy:before": "build",
-    "build:before": "build",
-    "run:before": "build"
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve"
   },
   "dependencies": {
-    "@ionic/storage": "^1.0.3",
-    "angularfire2": "2.0.0-beta.5",
-    "firebase": "3.4.1",
-    "ionic-angular": "^2.0.0-rc.0",
-    "ionic-native": "^2.0.3",
-    "ionicons": "^3.0.0"
+    "@angular/common": "2.2.1",
+    "@angular/compiler": "2.2.1",
+    "@angular/compiler-cli": "2.2.1",
+    "@angular/core": "2.2.1",
+    "@angular/forms": "2.2.1",
+    "@angular/http": "2.2.1",
+    "@angular/platform-browser": "2.2.1",
+    "@angular/platform-browser-dynamic": "2.2.1",
+    "@angular/platform-server": "2.2.1",
+    "@ionic/storage": "1.1.7",
+    "angularfire2": "^2.0.0-beta.7",
+    "firebase": "^3.6.6",
+    "ionic-angular": "2.0.0-rc.5",
+    "ionic-native": "2.2.11",
+    "ionicons": "3.0.0",
+    "rxjs": "5.0.0-beta.12",
+    "sw-toolbox": "3.4.0",
+    "zone.js": "0.6.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^0.0.23",
-    "typescript": "^2.0.3"
+    "@ionic/app-scripts": "1.0.0",
+    "typescript": "2.0.9"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",
