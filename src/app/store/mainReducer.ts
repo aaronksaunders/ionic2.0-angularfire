@@ -12,6 +12,10 @@ export const CREATE_USER: string = "CREATE_USER";
 export const CREATE_USER_SUCCESS: string = "CREATE_USER_SUCCESS";
 export const CREATE_USER_FAILED: string = "CREATE_USER_FAILED"
 
+export const GET_FIREBASE_ARRAY: string = "GET_FIREBASE_ARRAY";
+export const GET_FIREBASE_ARRAY_SUCCESS: string = "GET_FIREBASE_ARRAY_SUCCESS";
+export const GET_FIREBASE_ARRAY_FAILED: string = "GET_FIREBASE_ARRAY_FAILED"
+
 export const CHECK_AUTH: string = "CHECK_AUTH";
 export const CHECK_AUTH_SUCCESS: string = "CHECK_AUTH_SUCCESS";
 export const CHECK_AUTH_NO_USER: string = "CHECK_AUTH_NO_USER";
@@ -86,6 +90,15 @@ export const mainAppStoreReducer: ActionReducer<State> =
         return Object.assign({}, state, { error: action.payload, currentUser: null, authChecked: true })
       }
 
+      case GET_FIREBASE_ARRAY: {
+        return Object.assign({}, state, { queryParams: action.payload })
+      }
+      case GET_FIREBASE_ARRAY_SUCCESS: {
+        return Object.assign({}, state, { data : action.payload })
+      }
+      case GET_FIREBASE_ARRAY_FAILED: {
+        return Object.assign({}, state, { error: action.payload })
+      }
       default: {
         return state;
       }

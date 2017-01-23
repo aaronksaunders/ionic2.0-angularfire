@@ -1,15 +1,15 @@
-import { CHECK_AUTH, CHECK_AUTH_SUCCESS, CHECK_AUTH_FAILED, CHECK_AUTH_NO_USER, LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED, LOGIN, LOGIN_SUCCESS, LOGIN_FAILED, CREATE_USER_SUCCESS, CREATE_USER_FAILED } from './mainReducer';
+import { CHECK_AUTH, CHECK_AUTH_SUCCESS, CHECK_AUTH_FAILED, CHECK_AUTH_NO_USER, LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED, LOGIN, LOGIN_SUCCESS, LOGIN_FAILED, CREATE_USER_SUCCESS, CREATE_USER_FAILED, GET_FIREBASE_ARRAY, GET_FIREBASE_ARRAY_SUCCESS, GET_FIREBASE_ARRAY_FAILED } from './mainReducer';
 import { CREATE_USER } from './mainReducer';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { Effect, Actions, toPayload } from "@ngrx/effects";
 
-import { AuthProviders, AuthMethods, AngularFireAuth } from 'angularfire2';
+import { AuthProviders, AuthMethods, AngularFireAuth, AngularFire } from 'angularfire2';
 
 @Injectable()
 export class MainEffects {
 
-    constructor(private action$: Actions, public auth$: AngularFireAuth, ) {
+    constructor(private action$: Actions, public auth$: AngularFireAuth, public af: AngularFire) {
         console.log(this.auth$.getAuth())
     }
 
@@ -57,6 +57,16 @@ export class MainEffects {
             return this.doCreateUser(payload)
         })
 
+
+
+    @Effect() getFBArray$ = this.action$
+        // Listen for the 'LOGOUT' action
+        .ofType(GET_FIREBASE_ARRAY)
+        .map(toPayload)
+        .switchMap(payload => {
+            return this.doFirebaseLoadArray(payload)
+        })
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -89,5 +99,19 @@ export class MainEffects {
                 return observer.next({ type: CREATE_USER_FAILED, payload: error })
             })
         })
+    }
+
+    doFirebaseLoadArray(_params) {
+        return Observable.create((observer) => {
+            var s: any = this.af.database.object("stuff")
+            s.flatMap(() => this.af.database.list("stuff"))
+                .subscribe(items => {
+                    observer.next({ type: GET_FIREBASE_ARRAY_SUCCESS, payload: items })
+                }, (error) => {
+                    console.log(' ERROR: ' + error);
+                    observer.next({ type: GET_FIREBASE_ARRAY_FAILED, payload: error })
+                })
+        })
+
     }
 }

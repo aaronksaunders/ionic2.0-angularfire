@@ -5,7 +5,7 @@ import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState, AngularFire
 import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store'
-import { State, CHECK_AUTH, LOGOUT, LOGIN, CREATE_USER } from './../../app/store/mainReducer';
+import { State, CHECK_AUTH, LOGOUT, LOGIN, CREATE_USER, GET_FIREBASE_ARRAY } from './../../app/store/mainReducer';
 
 
 @Component({
@@ -39,7 +39,7 @@ export class HomePage implements OnInit {
 
       if (data.error) {
         this.error = data.error
-      } 
+      }
     });
   }
 
@@ -69,5 +69,9 @@ export class HomePage implements OnInit {
     if (_credentials.valid) {
       this.store.dispatch({ type: CREATE_USER, payload: _credentials.value });
     }
+  }
+
+  doQuery() {
+    this.store.dispatch({ type: GET_FIREBASE_ARRAY, payload: { path: 'stuff' } });
   }
 }
