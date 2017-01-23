@@ -50,16 +50,19 @@
           <ion-col>
             <button ion-button (click)="doLogin(loginForm)" type="submit" color="primary" block>Login</button>
           </ion-col>
+          <ion-col>
+            <button ion-button (click)="doCreateUser(loginForm)" type="submit" color="primary" block>Create User</button>
+          </ion-col>
         </ion-row>
 
         <ion-row responsive-sm>
           <ion-col>
             <strong>
             <h4 *ngIf="error" style="color:red">Error:&nbsp;{{ error.message }}</h4>
-            </strong>
-          </ion-col>
-        </ion-row>
-      </form>
-    </div>
-  </ion-list>
+</strong>
+</ion-col>
+</ion-row>
+</form>
+</div>
+</ion-list>
 </ion-content>

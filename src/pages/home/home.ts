@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState, AngularFireAuth } from 'angularfire2';
 
 import { NavController } from 'ionic-angular';
-import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store'
+import { State, CHECK_AUTH, LOGOUT, LOGIN, CREATE_USER } from './../../app/store/mainReducer';
 
 
 @Component({
@@ -26,35 +28,28 @@ export class HomePage implements OnInit {
     public af: AngularFire,
     private builder: FormBuilder,
     public navCtrl: NavController,
-    public auth$: AngularFireAuth) {
+    private store: Store<State>) {
 
+    this.store.select('mainAppStoreReducer').subscribe((data: State) => {
+      console.log("mainAppStoreReducer store changed - ", data)
+      if (data.authChecked === true) {
+        this.currentUser = data.currentUser;
+        this.authChecked = data.authChecked;
+      }
+
+      if (data.error) {
+        this.error = data.error
+      } 
+    });
   }
 
 
   ngOnInit() {
-
-    // subscribe to the auth object to check for the login status
-    // of the user, if logged in, save some user information and
-    // execute the firebase query...
-    // .. otherwise
-    // show the login modal page
-
-
-    this.auth$.subscribe((state: FirebaseAuthState) => {
-      if (state) {
-        console.log("in auth subscribe", state)
-        this.currentUser = state;
-      } else {
-        this.currentUser = null
-      }
-
-      this.authChecked = true;
-    });
-
+    this.store.dispatch({ type: CHECK_AUTH });
   }
 
   doLogout() {
-    this.af.auth.logout()
+    this.store.dispatch({ type: LOGOUT });
   }
 
   doLogin(_credentials) {
@@ -62,18 +57,17 @@ export class HomePage implements OnInit {
     this.error = null
 
     if (_credentials.valid) {
-      this.af.auth.login(_credentials.value, {
-        provider: AuthProviders.Password,
-        method: AuthMethods.Password
-      }).then((authData) => {
-        console.log("Logged In", authData)
-        this.currentUser = authData;
-
-      }).catch((error) => {
-        this.error = error
-        console.log(error)
-      });
+      this.store.dispatch({ type: LOGIN, payload: _credentials.value });
     }
   }
 
+
+  doCreateUser(_credentials) {
+    this.submitted = true;
+    this.error = null
+
+    if (_credentials.valid) {
+      this.store.dispatch({ type: CREATE_USER, payload: _credentials.value });
+    }
+  }
 }
