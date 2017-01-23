@@ -21,11 +21,7 @@ export const firebaseConfig = {
 //  databaseURL: '<your-database-URL>',
 //  storageBucket: '<your-storage-bucket>'
 
-    apiKey: "AIzaSyC7XBiaPpX3tbmsO7oofWsNYK7ZP3fkkzU",
-    authDomain: "new-web-project-45936.firebaseapp.com",
-    databaseURL: "https://new-web-project-45936.firebaseio.com",
-    storageBucket: "new-web-project-45936.appspot.com",
-    messagingSenderId: "882846816313"
+
 };
 
 @NgModule({
