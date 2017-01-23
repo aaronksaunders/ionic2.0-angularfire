@@ -1,39 +1,23 @@
 # ionic2.0-angularfire
 this a basic application for Ionic 2.0 RC0 with AngularFire2 Integration
 - Login with email address & password
-- Query List of Objects
+- Automatically login if a session already exists
+- Create accounts
+- Integration of ngrx/store & ngrx/effects to manage state
 
-See Issue: https://github.com/angular/angularfire2/issues/578
+```
+Your system information:
 
-
-See change in `rollup.config.js` in `node_modules/@ionic/app-scripts/config/rollup.config.js`
-```
-useStrict: false, // MODIFIED line 26
-```
-In the plugins section starting at line 36
-```
-  plugins: [
-    ngTemplate(),
-    // -- CHANGES BELOW --
-    commonjs({
-      include: [
-        'node_modules/rxjs/**',
-        'node_modules/angularfire2/**',
-        'node_modules/firebase/**'
-      ],
-      namedExports: {
-        'node_modules/angularfire2/node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database']
-      }
-    }),
-    // -- CHANGES END --
-    nodeResolve({
-      module: true,
-      jsnext: true,
-      main: true,
-      browser: true,
-      extensions: ['.js']
-    })
-  ]
+Cordova CLI: 6.4.0
+Ionic Framework Version: 2.0.0-rc.5
+Ionic CLI Version: 2.2.1
+Ionic App Lib Version: 2.1.7
+Ionic App Scripts Version: 1.0.0
+ios-deploy version: 1.8.6
+ios-sim version: 5.0.6
+OS: macOS Sierra
+Node Version: v5.0.0
+Xcode version: Xcode 8.2.1 Build version 8C1002
 ```
 
 
