@@ -1,5 +1,5 @@
 # ionic2.0-angularfire
-this a basic application for Ionic 2.0 RC0 with AngularFire2 Integration
+A basic application for Ionic 2.0.rc5  with AngularFire2 & ngrx Integration
 - Login with email address & password
 - Automatically login if a session already exists
 - Create accounts
