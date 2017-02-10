@@ -1,4 +1,12 @@
-import { CHECK_AUTH, CHECK_AUTH_SUCCESS, CHECK_AUTH_FAILED, CHECK_AUTH_NO_USER, LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED, LOGIN, LOGIN_SUCCESS, LOGIN_FAILED, CREATE_USER_SUCCESS, CREATE_USER_FAILED, GET_FIREBASE_ARRAY, GET_FIREBASE_ARRAY_SUCCESS, GET_FIREBASE_ARRAY_FAILED } from './mainReducer';
+import {
+    CHECK_AUTH, CHECK_AUTH_SUCCESS, CHECK_AUTH_FAILED,
+    CHECK_AUTH_NO_USER, LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED,
+    LOGIN, LOGIN_SUCCESS, LOGIN_FAILED, CREATE_USER_SUCCESS,
+    CREATE_USER_FAILED, GET_FIREBASE_ARRAY, GET_FIREBASE_ARRAY_SUCCESS,
+    GET_FIREBASE_ARRAY_FAILED,
+    GET_FIREBASE_OBJECT, GET_FIREBASE_OBJECT_SUCCESS,
+    GET_FIREBASE_OBJECT_FAILED
+} from './mainReducer';
 import { CREATE_USER } from './mainReducer';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
@@ -15,9 +23,10 @@ export class MainEffects {
 
     @Effect() checkAuth$ = this.action$
         .ofType(CHECK_AUTH)
-        .switchMap(() => this.auth$)
+        .switchMap(() => this.af.auth)
+        .take(1)
         .map((_result) => {
-            //this.auth$.unsubscribe()
+            //this.af.auth.unsubscribe()
             if (_result) {
                 console.log("in auth subscribe", _result)
                 return { type: CHECK_AUTH_SUCCESS, payload: _result }
@@ -67,6 +76,16 @@ export class MainEffects {
             return this.doFirebaseLoadArray(payload)
         })
 
+
+
+    @Effect() getFBObject$ = this.action$
+        // Listen for the 'LOGOUT' action
+        .ofType(GET_FIREBASE_OBJECT)
+        .map(toPayload)
+        .switchMap(payload => {
+            return this.doFirebaseLoadObject(payload)
+        })
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -105,6 +124,7 @@ export class MainEffects {
         return Observable.create((observer) => {
             var s: any = this.af.database.object("stuff")
             s.flatMap(() => this.af.database.list("stuff"))
+                .take(1)
                 .subscribe(items => {
                     observer.next({ type: GET_FIREBASE_ARRAY_SUCCESS, payload: items })
                 }, (error) => {
@@ -112,6 +132,18 @@ export class MainEffects {
                     observer.next({ type: GET_FIREBASE_ARRAY_FAILED, payload: error })
                 })
         })
-
+    }
+    doFirebaseLoadObject(_params) {
+        return Observable.create((observer) => {
+            var s: any = this.af.database.object(_params.path)
+            s.flatMap(() => this.af.database.object(_params.path))
+                .take(1)
+                .subscribe(items => {
+                    observer.next({ type: GET_FIREBASE_OBJECT_SUCCESS, payload: items })
+                }, (error) => {
+                    console.log(' ERROR: ' + error);
+                    observer.next({ type: GET_FIREBASE_OBJECT_FAILED, payload: error })
+                })
+        })
     }
 }

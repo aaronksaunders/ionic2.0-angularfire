@@ -16,6 +16,10 @@ export const GET_FIREBASE_ARRAY: string = "GET_FIREBASE_ARRAY";
 export const GET_FIREBASE_ARRAY_SUCCESS: string = "GET_FIREBASE_ARRAY_SUCCESS";
 export const GET_FIREBASE_ARRAY_FAILED: string = "GET_FIREBASE_ARRAY_FAILED"
 
+export const GET_FIREBASE_OBJECT: string = "GET_FIREBASE_OBJECT";
+export const GET_FIREBASE_OBJECT_SUCCESS: string = "GET_FIREBASE_OBJECT_SUCCESS";
+export const GET_FIREBASE_OBJECT_FAILED: string = "GET_FIREBASE_OBJECT_FAILED"
+
 export const CHECK_AUTH: string = "CHECK_AUTH";
 export const CHECK_AUTH_SUCCESS: string = "CHECK_AUTH_SUCCESS";
 export const CHECK_AUTH_NO_USER: string = "CHECK_AUTH_NO_USER";
@@ -25,12 +29,16 @@ export const CHECK_AUTH_FAILED: string = "CHECK_AUTH_FAILED";
 export const intitialState = {
   authChecked: false,
   currentUser: null,
+  loading: false
 }
 
 export interface State {
   authChecked: boolean,
   currentUser: any,
+  loading: boolean
   error?: any
+  dataArray?: Array<any>
+  dataObject?: Object
 };
 
 
@@ -42,62 +50,71 @@ export const mainAppStoreReducer: ActionReducer<State> =
     switch (action.type) {
 
       case LOGIN: {
-        return Object.assign({}, state, { currentCreds: action.payload })
+        return Object.assign({}, state, { currentCreds: action.payload, loading: true })
       }
 
       case LOGIN_SUCCESS: {
-        return Object.assign({}, state, { currentUser: action.payload, currentCreds: null, error: null })
+        return Object.assign({}, state, { currentUser: action.payload, currentCreds: null, error: null, loading: false })
       }
 
       case LOGIN_FAILED: {
-        return Object.assign({}, state, { error: action.payload, currentUser: null, authChecked: true })
+        return Object.assign({}, state, { error: action.payload, currentUser: null, authChecked: true, loading: false })
       }
 
       case LOGOUT: {
-        return Object.assign({}, state)
+        return Object.assign({}, state, { loading: true })
       }
 
       case LOGOUT_SUCCESS: {
-        return Object.assign({}, state, intitialState)
+        return Object.assign({}, intitialState, { authChecked: true })
       }
 
       case LOGOUT_FAILED: {
-        return Object.assign({}, state, { error: action.payload })
+        return Object.assign({}, state, { error: action.payload, loading: false })
       }
       case CHECK_AUTH: {
-        return Object.assign({}, state)
+        return Object.assign({}, state, { loading: true })
       }
 
       case CHECK_AUTH_SUCCESS: {
-        return Object.assign({}, state, { currentUser: action.payload, authChecked: true })
+        return Object.assign({}, state, { currentUser: action.payload, authChecked: true, loading: false })
       }
       case CHECK_AUTH_FAILED: {
-        return Object.assign({}, state, { error: action.payload, currentUser: null, authChecked: true })
+        return Object.assign({}, state, { error: action.payload, currentUser: null, authChecked: true, loading: false })
       }
       case CHECK_AUTH_NO_USER: {
-        return Object.assign({}, state, { currentUser: null, authChecked: true })
+        return Object.assign({}, state, { currentUser: null, authChecked: true, loading: false })
       }
 
       //
       case CREATE_USER: {
-        return Object.assign({}, state, { currentCreds: action.payload })
+        return Object.assign({}, state, { currentCreds: action.payload, loading: true })
       }
 
       case CREATE_USER_SUCCESS: {
-        return Object.assign({}, state, { currentUser: action.payload, authChecked: true })
+        return Object.assign({}, state, { currentUser: action.payload, authChecked: true, loading: false })
       }
       case CREATE_USER_FAILED: {
-        return Object.assign({}, state, { error: action.payload, currentUser: null, authChecked: true })
+        return Object.assign({}, state, { error: action.payload, currentUser: null, authChecked: true, loading: false })
       }
 
       case GET_FIREBASE_ARRAY: {
-        return Object.assign({}, state, { queryParams: action.payload })
+        return Object.assign({}, state, { queryParams: action.payload, loading: true })
       }
       case GET_FIREBASE_ARRAY_SUCCESS: {
-        return Object.assign({}, state, { data : action.payload })
+        return Object.assign({}, state, { dataArray: action.payload, loading: false })
       }
       case GET_FIREBASE_ARRAY_FAILED: {
-        return Object.assign({}, state, { error: action.payload })
+        return Object.assign({}, state, { error: action.payload, loading: false })
+      }
+      case GET_FIREBASE_OBJECT: {
+        return Object.assign({}, state, { queryParams: action.payload, loading: true })
+      }
+      case GET_FIREBASE_OBJECT_SUCCESS: {
+        return Object.assign({}, state, { dataObject: action.payload, loading: false })
+      }
+      case GET_FIREBASE_OBJECT_FAILED: {
+        return Object.assign({}, state, { error: action.payload, loading: false })
       }
       default: {
         return state;

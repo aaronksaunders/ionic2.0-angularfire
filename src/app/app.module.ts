@@ -1,3 +1,4 @@
+import { StuffDetailPage } from './../pages/stuff-detail/stuff-detail';
 import { MainEffects } from './store/mainEffects';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -16,11 +17,6 @@ import { mainAppStoreReducer } from '../app/store/mainReducer';
 
 // Must export the config
 export const firebaseConfig = {
-  //  apiKey: '<your-key>',
-  //  authDomain: '<your-project-authdomain>',
-  //  databaseURL: '<your-database-URL>',
-  //  storageBucket: '<your-storage-bucket>'
-
 
 };
 
@@ -36,12 +32,14 @@ export const firebaseConfig = {
   ],
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    StuffDetailPage
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    StuffDetailPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
