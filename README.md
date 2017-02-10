@@ -1,6 +1,9 @@
-![ionic2](https://raw.githubusercontent.com/aaronksaunders/ionic2.0-angularfire/master/Untitled.png)
 # Ionic2.0 Angularfire2
-A basic application for Ionic 2.0.1  with AngularFire2 & ngrx Integration
+
+ ![ionic2](https://raw.githubusercontent.com/aaronksaunders/ionic2.0-angularfire/master/Untitled.png)
+
+## A basic application for Ionic 2.0.1  with AngularFire2 & ngrx Integration
+
 - Login with email address & password
 - Automatically login if a session already exists
 - Create accounts
@@ -10,7 +13,9 @@ A basic application for Ionic 2.0.1  with AngularFire2 & ngrx Integration
 - Find a specific List Object
 
 ## Ionic Version Information
-```
+
+```console
+
 Your system information:
 
 Cordova CLI: 6.4.0
@@ -24,6 +29,8 @@ OS: macOS Sierra
 Node Version: v5.0.0
 Xcode version: Xcode 8.2.1 Build version 8C1002
 ```
+
 ## More Information on ngRx
+
 * More Information on ngrx/store: [https://github.com/ngrx/store](https://github.com/ngrx/store)
 * More Information on ngrx/effects: [https://github.com/ngrx/store](https://github.com/ngrx/effects)
