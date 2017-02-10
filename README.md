@@ -1,3 +1,4 @@
+![ionic2](https://raw.githubusercontent.com/aaronksaunders/ionic2.0-angularfire/master/Untitled.png)
 # ionic2.0-angularfire
 A basic application for Ionic 2.0.rc5  with AngularFire2 & ngrx Integration
 - Login with email address & password
