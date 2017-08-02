@@ -1,3 +1,5 @@
+## UPDATED VERSION SUPPORTING ngrx4 [aaronksaunders/ionic3-ngrx4-angularfire](https://github.com/aaronksaunders/ionic3-ngrx4-angularfire)
+
 # Ionic2.0 Angularfire2
 
  ![ionic2](https://raw.githubusercontent.com/aaronksaunders/ionic2.0-angularfire/master/Untitled.png)
